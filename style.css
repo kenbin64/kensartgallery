@@ -1,0 +1,571 @@
+/* The gallery: a quiet wall, so the pictures do the talking.
+   One stylesheet for every page. No outside fonts or files are loaded. */
+:root {
+  --wall: #f4f1ec;        /* the wall */
+  --card: #ffffff;
+  --ink: #1d1c1a;
+  --ink-2: #55524c;
+  --muted: #86827a;
+  --line: #ddd8cf;
+  --accent: #7a2e1d;      /* a deep red, for links and the one button */
+  --accent-2: #5d2114;
+  --good: #2f6b3a;
+  --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--wall); color: var(--ink); font: 17px/1.6 var(--sans); }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+/* The top of every page. */
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 28px; max-width: 1400px; margin: 0 auto; padding: 26px 24px 18px; }
+.name { font: 400 30px/1.1 var(--serif); letter-spacing: 0.01em; color: var(--ink); text-decoration: none; }
+.name span { display: block; font: 400 14px var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.top nav { display: flex; gap: 22px; }
+.top nav a { font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; }
+.top nav a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* The wall of pictures. Columns keep every picture at its own shape. */
+.wall { max-width: 1400px; margin: 0 auto; padding: 8px 24px 60px; }
+.filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.filter button { font: 400 15px var(--sans); color: var(--ink-2); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 9px 18px; min-height: 44px; cursor: pointer; }
+.filter button span { color: var(--muted); margin-left: 4px; }
+.filter button:hover { border-color: var(--ink); color: var(--ink); }
+.filter button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.filter button[aria-pressed="true"] span { color: #cfcac1; }
+.grid { columns: 3 320px; column-gap: 28px; }
+.piece { display: block; break-inside: avoid; margin: 0 0 34px; text-decoration: none; color: inherit; }
+.piece img { width: 100%; background: #e6e1d8; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18), 0 10px 26px rgba(0, 0, 0, 0.13); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.piece:hover img { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 18px 38px rgba(0, 0, 0, 0.2); }
+@media (prefers-reduced-motion: reduce) { .piece img { transition: none; } .piece:hover img { transform: none; } }
+.label { display: block; padding: 12px 2px 0; }
+.label b { display: block; font: 400 20px/1.25 var(--serif); }
+.label i { display: block; font-style: normal; font-size: 14px; color: var(--muted); }
+.status { display: inline-block; margin-top: 6px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); }
+.status.available { border-color: var(--good); color: var(--good); }
+.status.sold { border-color: var(--accent); color: var(--accent); }
+
+/* One work on its own page. */
+.work { max-width: 1400px; margin: 0 auto; padding: 8px 24px 50px; display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(280px, 1fr); gap: 34px 44px; align-items: start; }
+@media (max-width: 900px) { .work { grid-template-columns: 1fr; } }
+.frame { display: block; background: var(--card); padding: clamp(10px, 2vw, 22px); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 16px 40px rgba(0, 0, 0, 0.14); cursor: zoom-in; }
+.frame img { width: 100%; max-height: 82vh; object-fit: contain; }
+.plate { display: grid; gap: 10px; align-content: start; }
+.plate .kind { margin: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.plate h1 { margin: 0; font: 400 clamp(30px, 4vw, 44px)/1.1 var(--serif); }
+.plate .facts { margin: 0; color: var(--ink-2); }
+.plate .about { margin: 6px 0 0; color: var(--ink-2); }
+.plate .made { margin: 6px 0 0; font-size: 14px; color: var(--muted); border-left: 3px solid var(--line); padding-left: 12px; }
+.ask { display: grid; gap: 12px; margin-top: 18px; padding-top: 20px; border-top: 1px solid var(--line); }
+.ask h2 { margin: 0; font: 400 22px var(--serif); }
+.ask label { display: grid; gap: 5px; font-size: 14px; color: var(--ink-2); }
+.ask input, .ask textarea { font: 16px/1.4 var(--sans); color: var(--ink); background: var(--card); border: 1px solid #c9c3b8; border-radius: 4px; padding: 10px 12px; width: 100%; }
+.ask textarea { resize: vertical; }
+.ask .trap { position: absolute; left: -9999px; }          /* a box people never see; programs that fill forms do */
+.ask button, .button { justify-self: start; font: 400 15px var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent); border: 0; border-radius: 4px; padding: 13px 26px; min-height: 48px; cursor: pointer; text-decoration: none; display: inline-block; }
+.ask button:hover, .button:hover { background: var(--accent-2); }
+.ask button:disabled { opacity: 0.55; cursor: default; }
+.ask .note { margin: 0; font-size: 15px; min-height: 1.4em; }
+.ask .note.ok { color: var(--good); }
+.ask .note.bad { color: var(--accent); }
+.turn { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-top: 22px; border-top: 1px solid var(--line); }
+.turn a { color: var(--ink-2); text-decoration: none; font-size: 15px; padding: 8px 0; }
+.turn a:hover { color: var(--ink); text-decoration: underline; }
+
+/* A picture opened to fill the screen. */
+.full { position: fixed; inset: 0; z-index: 10; background: rgba(20, 19, 17, 0.95); display: grid; place-items: center; padding: 3vmin; cursor: zoom-out; }
+.full img { max-width: 100%; max-height: 94vh; object-fit: contain; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+.full button { position: absolute; top: 14px; right: 16px; font: 400 15px var(--sans); color: #fff; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 999px; padding: 10px 18px; min-height: 44px; cursor: pointer; }
+
+/* About. */
+.about-page { max-width: 720px; margin: 0 auto; padding: 8px 24px 60px; }
+.about-page h1 { font: 400 clamp(32px, 5vw, 46px) var(--serif); margin: 10px 0 18px; }
+.about-page h2 { font: 400 26px var(--serif); margin: 34px 0 10px; }
+.about-page p { font-size: 19px; color: var(--ink-2); margin: 0 0 14px; }
+
+.foot { border-top: 1px solid var(--line); max-width: 1400px; margin: 0 auto; padding: 22px 24px 40px; font-size: 14px; color: var(--muted); }
+.foot p { margin: 0; }
+
+/* ───────────────────────── Walls ─────────────────────────
+   The wall is chosen on the <html> element. Each one sets the colours the rest
+   of the page reads from, so text stays readable on a dark wall. A soft light
+   from above is laid over every wall. */
+html { --light: radial-gradient(120% 70% at 50% -10%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 60%); --grain: none; }
+html[data-wall="plaster"] { --wall: #efe9df; --grain: radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.035) 0 1px, transparent 1.5px), radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.5px), radial-gradient(circle at 40% 80%, rgba(0, 0, 0, 0.03) 0 1px, transparent 1.5px); }
+html[data-wall="white"] { --wall: #fafaf8; --line: #e4e2dd; }
+html[data-wall="grey"] { --wall: #c9c8c4; --line: #b3b1ac; --muted: #5f5d58; --ink-2: #3b3a36; }
+html[data-wall="charcoal"] { --wall: #2b2c2e; --ink: #f3f1ec; --ink-2: #cfccc4; --muted: #9c9991; --line: #47484a; --card: #f7f5f0; --accent: #e0a37f; --accent-2: #c98a66; --light: radial-gradient(120% 70% at 50% -10%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 60%); }
+html[data-wall="red"] { --wall: #5d1f1c; --ink: #f6efe6; --ink-2: #e0d3c4; --muted: #c2ac99; --line: #7d3a35; --card: #f7f5f0; --accent: #f0c88a; --accent-2: #dcb070; --light: radial-gradient(120% 70% at 50% -10%, rgba(255, 220, 190, 0.2), rgba(255, 255, 255, 0) 60%); }
+html[data-wall="green"] { --wall: #26403a; --ink: #f2f0e8; --ink-2: #d5d6c8; --muted: #a9b3a3; --line: #3d5a52; --card: #f7f5f0; --accent: #e8c98a; --accent-2: #d4b270; --light: radial-gradient(120% 70% at 50% -10%, rgba(255, 255, 230, 0.16), rgba(255, 255, 255, 0) 60%); }
+html[data-wall="brick"] { --wall: #8a4a37; --ink: #fbf3ea; --ink-2: #f0dccb; --muted: #e0c2ad; --line: #a8644e; --card: #f7f5f0; --accent: #ffe0a8; --accent-2: #f0cb8a;
+  --grain: linear-gradient(rgba(60, 28, 20, 0.55) 3px, transparent 3px), linear-gradient(90deg, rgba(60, 28, 20, 0.55) 3px, transparent 3px), linear-gradient(90deg, rgba(60, 28, 20, 0.55) 3px, transparent 3px);
+  --light: radial-gradient(120% 70% at 50% -10%, rgba(255, 220, 190, 0.22), rgba(255, 255, 255, 0) 60%); }
+body { background-color: var(--wall); background-image: var(--light), var(--grain); background-size: 100% 900px, 7px 7px, 11px 11px, 13px 13px; background-repeat: no-repeat, repeat, repeat, repeat; }
+html[data-wall="brick"] body { background-size: 100% 900px, 120px 40px, 120px 80px, 120px 80px; background-position: 0 0, 0 0, 0 0, 60px 40px; }
+html:not([data-wall="plaster"]):not([data-wall="white"]):not([data-wall="grey"]) .filter button[aria-pressed="true"] { background: var(--ink); color: var(--wall); border-color: var(--ink); }
+html:not([data-wall="plaster"]):not([data-wall="white"]):not([data-wall="grey"]) .filter button[aria-pressed="true"] span { color: var(--wall); opacity: 0.7; }
+html:not([data-wall="plaster"]):not([data-wall="white"]):not([data-wall="grey"]) .ask button, html:not([data-wall="plaster"]):not([data-wall="white"]):not([data-wall="grey"]) .button { color: #201a14; }
+
+/* ───────────────────────── Frames ─────────────────────────
+   A frame is three boxes around the picture: the moulding, an inner lip and an
+   optional card mount. They are borders, so each side keeps the same width
+   whatever the picture's size or shape, and the corners meet at 45 degrees as a
+   real frame's do. The moulding's width follows the width of the space the
+   picture hangs in (the cqw unit), so a large picture gets a broader frame. */
+.piece, .frame { container-type: inline-size; }
+.fr { --fw: clamp(9px, 4.2cqw, 46px); display: block; border: var(--fw) solid; box-shadow: 0 calc(var(--fw) * 0.25) calc(var(--fw) * 0.5) rgba(0, 0, 0, 0.3), 0 calc(var(--fw) * 0.9) calc(var(--fw) * 2.2) rgba(0, 0, 0, 0.28); transition: transform 0.25s ease; }
+.fr .lip { display: block; border: calc(var(--fw) * 0.2) solid; }
+.fr .mount { display: block; background: #fbfaf6; }
+.fr.has-mount .mount { padding: calc(var(--fw) * 1.5); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12), inset 0 2px 6px rgba(0, 0, 0, 0.18); }
+.fr img { width: 100%; box-shadow: none; }
+.fr.has-mount img { box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25); }
+/* Light falls from above: the top edge is lightest, the bottom darkest, and the lip is the reverse. */
+.fr-gold { border-color: #f1d98c #c9a445 #8a6a1f #dcbb5e; }
+.fr-gold .lip { border-color: #8a6a1f #dcbb5e #f1d98c #b9953b; }
+.fr-wood { border-color: #8a5a34 #6b4023 #4a2a15 #7a4c2a; }
+.fr-wood .lip { border-color: #3d2211 #7a4c2a #9a6a40 #5a3319; }
+.fr-oak { border-color: #d9b98a #b89363 #94713f #c9a573; }
+.fr-oak .lip { border-color: #8a6a3c #c9a573 #e6cba0 #a98455; }
+.fr-black { border-color: #3a3a3c #1f1f21 #0d0d0e #2b2b2d; }
+.fr-black .lip { border-color: #000 #2b2b2d #4a4a4d #151516; }
+.fr-white { border-color: #ffffff #ecebe7 #d2d0ca #f6f5f1; }
+.fr-white .lip { border-color: #c9c7c1 #f6f5f1 #ffffff #dddbd5; }
+.fr-none { border-width: 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 14px 30px rgba(0, 0, 0, 0.25); }
+.fr-none .lip { border-width: 0; }
+/* The earlier plain shadow and white card are replaced by the frame. */
+.piece img, .piece:hover img { box-shadow: none; transform: none; background: none; }
+.piece:hover .fr { transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) { .fr { transition: none; } .piece:hover .fr { transform: none; } }
+.piece { margin-bottom: 44px; }
+.label { padding-top: 16px; }
+.frame { background: none; padding: 0; box-shadow: none; }
+.frame .fr { max-width: min(100%, calc(82vh * var(--shape, 1.4))); margin: 0 auto; }
+.frame img { max-height: none; }
+
+/* ───────────────────────── Choosing a wall or a frame ───────────────────────── */
+.wallpick { display: flex; align-items: center; gap: 10px; width: 100%; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.swatches { display: inline-flex; flex-wrap: wrap; gap: 8px; }
+.sw { width: 34px; height: 34px; border-radius: 50%; border: 2px solid rgba(128, 128, 128, 0.55); cursor: pointer; padding: 0; position: relative; }
+.sw::after { content: ""; position: absolute; inset: -7px; }                 /* a larger area to tap */
+.sw[aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.sw-plaster { background: #efe9df; } .sw-white { background: #fafaf8; } .sw-grey { background: #c9c8c4; } .sw-charcoal { background: #2b2c2e; }
+.sw-red { background: #5d1f1c; } .sw-green { background: #26403a; } .sw-brick { background: #8a4a37; }
+.sw-gold { background: linear-gradient(135deg, #f1d98c, #8a6a1f); } .sw-wood { background: linear-gradient(135deg, #8a5a34, #4a2a15); } .sw-oak { background: linear-gradient(135deg, #d9b98a, #94713f); }
+.sw-black { background: linear-gradient(135deg, #3a3a3c, #0d0d0e); } .sw-white.sw[data-frame] { background: linear-gradient(135deg, #ffffff, #d2d0ca); }
+.sw-none { background: repeating-linear-gradient(45deg, #ddd 0 4px, #f6f6f6 4px 8px); }
+.try { display: grid; gap: 10px; margin-top: 14px; padding-top: 18px; border-top: 1px solid var(--line); }
+.try h2 { margin: 0; font: 400 22px var(--serif); }
+.try .hint { margin: 0; font-size: 14px; color: var(--muted); }
+.check { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); min-height: 44px; }
+.check input { width: 20px; height: 20px; accent-color: var(--accent); }
+
+/* Text typed into the form sits on a light card on every wall, so it is always dark. */
+.ask input, .ask textarea { color: #1d1c1a; }
+/* Brick, laid in a running bond: each course is offset by half a brick. Drawn as one small tile. */
+html[data-wall="brick"] { --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Cg fill='none' stroke='%23331710' stroke-opacity='.6' stroke-width='3'%3E%3Cpath d='M0 1.5h120M0 41.5h120M1.5 0v40M61.5 40v40'/%3E%3C/g%3E%3C/svg%3E"); }
+html[data-wall="brick"] body { background-size: 100% 900px, 120px 80px; background-position: 0 0, 0 0; background-repeat: no-repeat, repeat; }
+
+/* ───────────────────────── Photographed walls ─────────────────────────
+   Stucco, stone and brick are photographs, made into tiles that repeat without
+   a seam (make-walls.py). On these walls the words sit on small card labels,
+   as they do in a gallery, so they stay easy to read against the texture. */
+html { --dim: 0; }
+html[data-wall="stucco"] { --wall: #d9d2c5; --photo: url("walls/stucco.jpg"); --photo-size: 900px auto; --dim: 0.2; --grain: none; }
+html[data-wall="stone"] { --wall: #4a4640; --photo: url("walls/stone.jpg"); --photo-size: 1000px auto; --dim: 0.3; --grain: none; --ink: #f6f2ea; --ink-2: #e6dfd2; --muted: #cfc7b8; --line: rgba(255, 255, 255, 0.28); --accent: #f0c88a; --accent-2: #dcb070; }
+html[data-wall="brick"] { --wall: #6e3423; --photo: url("walls/brick.jpg"); --photo-size: 760px auto; --dim: 0.3; --grain: none; --ink: #fbf3ea; --ink-2: #f3e3d3; --muted: #e6cdb9; --line: rgba(255, 255, 255, 0.3); --accent: #ffe0a8; --accent-2: #f0cb8a; }
+/* The room is kept a little dim, so the light on each picture shows. */
+html[data-wall="stucco"] body, html[data-wall="stone"] body, html[data-wall="brick"] body {
+  background-image: linear-gradient(rgba(0, 0, 0, var(--dim)), rgba(0, 0, 0, var(--dim))), var(--photo);
+  background-size: auto, var(--photo-size); background-repeat: repeat, repeat; background-position: 0 0, 0 0; }
+html[data-wall="charcoal"], html[data-wall="red"], html[data-wall="green"] { --light: none; }
+html[data-wall="stone"] .top, html[data-wall="brick"] .top, html[data-wall="stone"] .foot, html[data-wall="brick"] .foot, html[data-wall="stone"] .turn, html[data-wall="brick"] .turn { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85); }
+html[data-wall="stucco"] .label, html[data-wall="stone"] .label, html[data-wall="brick"] .label { display: inline-block; margin-top: 20px; padding: 9px 14px 10px; background: #f6f2ea; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 14px rgba(0, 0, 0, 0.25); }
+html[data-wall="stucco"] .label b, html[data-wall="stone"] .label b, html[data-wall="brick"] .label b { color: #1d1c1a; }
+html[data-wall="stucco"] .label i, html[data-wall="stone"] .label i, html[data-wall="brick"] .label i { color: #6b675f; }
+html[data-wall="stucco"] .plate, html[data-wall="stone"] .plate, html[data-wall="brick"] .plate, html[data-wall="stucco"] .about-page, html[data-wall="stone"] .about-page, html[data-wall="brick"] .about-page {
+  --ink: #1d1c1a; --ink-2: #55524c; --muted: #86827a; --line: #ddd8cf; --accent: #7a2e1d; --accent-2: #5d2114;
+  color: var(--ink); background: #f6f2ea; padding: 26px 26px 28px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 14px 34px rgba(0, 0, 0, 0.28); }
+html[data-wall="stucco"] .plate .ask button, html[data-wall="stone"] .plate .ask button, html[data-wall="brick"] .plate .ask button, html[data-wall="stucco"] .about-page .button, html[data-wall="stone"] .about-page .button, html[data-wall="brick"] .about-page .button { color: #fff; }
+html[data-wall="stucco"] .about-page, html[data-wall="stone"] .about-page, html[data-wall="brick"] .about-page { margin-top: 12px; margin-bottom: 50px; }
+html[data-wall="stone"] .filter button, html[data-wall="brick"] .filter button, html[data-wall="stucco"] .filter button { background: #f6f2ea; color: #3b3a36; border-color: #f6f2ea; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
+html[data-wall="stone"] .filter button span, html[data-wall="brick"] .filter button span, html[data-wall="stucco"] .filter button span { color: #86827a; }
+html[data-wall="stone"] .filter button[aria-pressed="true"], html[data-wall="brick"] .filter button[aria-pressed="true"], html[data-wall="stucco"] .filter button[aria-pressed="true"] { background: #1d1c1a; color: #fff; border-color: #1d1c1a; }
+html[data-wall="stone"] .filter button[aria-pressed="true"] span, html[data-wall="brick"] .filter button[aria-pressed="true"] span, html[data-wall="stucco"] .filter button[aria-pressed="true"] span { color: #cfcac1; opacity: 1; }
+html[data-wall="stucco"] .wallpick, html[data-wall="stucco"] .top nav a, html[data-wall="stucco"] .name span, html[data-wall="stucco"] .foot, html[data-wall="stucco"] .turn a { color: #2b2a27; }
+.sw-stucco { background: url("walls/stucco-dot.jpg") center / cover; }
+.sw-stone { background: url("walls/stone-dot.jpg") center / cover; }
+.sw-brick { background: url("walls/brick-dot.jpg") center / cover; }
+
+/* ───────────────────────── The frame that suits the wall ─────────────────────────
+   A picture with no frame of its own takes the frame chosen for the wall it is
+   hanging on: dark wood on stucco and plaster, gold on stone and the deep
+   colours, black on brick and white, white on grey, oak on green. */
+html { --auto-f: #8a5a34 #6b4023 #4a2a15 #7a4c2a; --auto-l: #3d2211 #7a4c2a #9a6a40 #5a3319; --auto-a: #8a5a34; --auto-b: #4a2a15; }
+html[data-wall="stone"], html[data-wall="charcoal"], html[data-wall="red"] { --auto-f: #f1d98c #c9a445 #8a6a1f #dcbb5e; --auto-l: #8a6a1f #dcbb5e #f1d98c #b9953b; --auto-a: #f1d98c; --auto-b: #8a6a1f; }
+html[data-wall="brick"], html[data-wall="white"] { --auto-f: #3a3a3c #1f1f21 #0d0d0e #2b2b2d; --auto-l: #000 #2b2b2d #4a4a4d #151516; --auto-a: #3a3a3c; --auto-b: #0d0d0e; }
+html[data-wall="grey"] { --auto-f: #ffffff #ecebe7 #d2d0ca #f6f5f1; --auto-l: #c9c7c1 #f6f5f1 #ffffff #dddbd5; --auto-a: #ffffff; --auto-b: #d2d0ca; }
+html[data-wall="green"] { --auto-f: #d9b98a #b89363 #94713f #c9a573; --auto-l: #8a6a3c #c9a573 #e6cba0 #a98455; --auto-a: #d9b98a; --auto-b: #94713f; }
+.fr-auto { border-color: var(--auto-f); }
+.fr-auto .lip { border-color: var(--auto-l); }
+.sw-auto { background: linear-gradient(135deg, var(--auto-a), var(--auto-b)); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.85); }
+
+/* ───────────────────────── Gallery lighting ─────────────────────────
+   Every picture has its own light: a small brass picture lamp above the frame,
+   a pool of warm light on the wall around it, and a soft fall of light down
+   the picture itself, brightest at the top. */
+.piece, .frame { position: relative; isolation: isolate; }
+.piece { padding-top: 34px; }
+.frame { padding-top: 44px; }
+.fr { position: relative; transition: none; }
+.piece:hover .fr { transform: none; }
+.fr::before { content: ""; position: absolute; z-index: -1; left: -20%; right: -20%; top: -34%; bottom: -16%; pointer-events: none;
+  background: radial-gradient(ellipse 56% 62% at 50% 36%, rgba(255, 236, 200, 0.62), rgba(255, 236, 200, 0.26) 42%, rgba(255, 236, 200, 0) 72%); }
+.fr::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 244, 222, 0.2), rgba(255, 244, 222, 0.05) 30%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.12) 100%); }
+.lamp { position: absolute; left: 50%; bottom: calc(100% + var(--fw) + 9px); width: clamp(54px, 34%, 190px); height: 9px; transform: translateX(-50%); border-radius: 5px 5px 2px 2px;
+  background: linear-gradient(180deg, #f3dfa0, #b48a2e 55%, #7a5a17); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 5px 14px 2px rgba(255, 232, 180, 0.75); }
+.lamp::before { content: ""; position: absolute; left: 50%; top: 100%; width: 3px; height: 10px; transform: translateX(-50%); background: linear-gradient(90deg, #7a5a17, #d9b65a, #7a5a17); }
+.piece:hover .fr::before { background: radial-gradient(ellipse 56% 62% at 50% 36%, rgba(255, 240, 210, 0.8), rgba(255, 240, 210, 0.34) 42%, rgba(255, 240, 210, 0) 72%); }
+/* On the pale walls the pool of light is gentler, so it reads as light and not as a stain. */
+html[data-wall="white"] .fr::before, html[data-wall="plaster"] .fr::before, html[data-wall="grey"] .fr::before { background: radial-gradient(ellipse 56% 62% at 50% 36%, rgba(255, 246, 225, 0.75), rgba(255, 246, 225, 0.3) 42%, rgba(255, 246, 225, 0) 72%); }
+
+/* The pools of light reach past the edge of the page; they are trimmed there so the page never scrolls sideways. */
+.wall, .work { overflow-x: clip; }
+body { overflow-x: hidden; }
+
+/* On stucco the words at the top are dark and a little heavier, with a pale edge, so they stand clear of the texture. */
+html[data-wall="stucco"] .top { text-shadow: 0 0 6px rgba(255, 252, 245, 0.95), 0 0 2px rgba(255, 252, 245, 0.95); }
+html[data-wall="stucco"] .name, html[data-wall="stucco"] .top nav a, html[data-wall="stucco"] .wallpick, html[data-wall="stucco"] .name span { color: #1d1c1a; font-weight: 600; }
+html[data-wall="stucco"] .name { font-weight: 400; }
+
+/* On the card beside a picture the Send button is always white on red. */
+html[data-wall="stucco"] .plate .ask button, html[data-wall="stone"] .plate .ask button, html[data-wall="brick"] .plate .ask button, html[data-wall="stucco"] .about-page .button, html[data-wall="stone"] .about-page .button, html[data-wall="brick"] .about-page .button { color: #fff !important; }
+
+/* The button that leads to where a piece is sold. */
+.buy { display: grid; gap: 6px; margin: 10px 0 0; }
+.buy .hint { font-size: 13px; color: var(--muted); }
+.buy .button { font-size: 16px; }
+
+/* The line that joins a painting to the digital image it was based on. */
+.pair { margin: 6px 0 0; font-size: 15px; color: var(--ink-2); }
+
+/* ───────────────────────── Two more photographed walls ───────────────────────── */
+html[data-wall="tile"] { --wall: #a4532a; --photo: url("walls/tile.jpg"); --photo-size: 820px auto; --dim: 0.34; --grain: none; --ink: #fbf3ea; --ink-2: #f3e3d3; --muted: #e6cdb9; --line: rgba(255, 255, 255, 0.3); --accent: #ffe0a8; --accent-2: #f0cb8a; }
+html[data-wall="mosaic"] { --wall: #6b5a45; --photo: url("walls/mosaic.jpg"); --photo-size: 820px auto; --dim: 0.36; --grain: none; --ink: #fbf3ea; --ink-2: #f3e3d3; --muted: #e6cdb9; --line: rgba(255, 255, 255, 0.3); --accent: #ffe0a8; --accent-2: #f0cb8a; }
+html[data-wall="tile"] body, html[data-wall="mosaic"] body {
+  background-image: linear-gradient(rgba(0, 0, 0, var(--dim)), rgba(0, 0, 0, var(--dim))), var(--photo);
+  background-size: auto, var(--photo-size); background-repeat: repeat, repeat; background-position: 0 0, 0 0; }
+html[data-wall="tile"] .top, html[data-wall="mosaic"] .top, html[data-wall="tile"] .foot, html[data-wall="mosaic"] .foot, html[data-wall="tile"] .turn, html[data-wall="mosaic"] .turn { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9); }
+html[data-wall="tile"] .label, html[data-wall="mosaic"] .label { display: inline-block; margin-top: 20px; padding: 9px 14px 10px; background: #f6f2ea; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 14px rgba(0, 0, 0, 0.25); }
+html[data-wall="tile"] .label b, html[data-wall="mosaic"] .label b { color: #1d1c1a; }
+html[data-wall="tile"] .label i, html[data-wall="mosaic"] .label i { color: #6b675f; }
+html[data-wall="tile"] .plate, html[data-wall="mosaic"] .plate, html[data-wall="tile"] .about-page, html[data-wall="mosaic"] .about-page {
+  --ink: #1d1c1a; --ink-2: #55524c; --muted: #86827a; --line: #ddd8cf; --accent: #7a2e1d; --accent-2: #5d2114;
+  color: var(--ink); background: #f6f2ea; padding: 26px 26px 28px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 14px 34px rgba(0, 0, 0, 0.28); }
+html[data-wall="tile"] .plate .ask button, html[data-wall="mosaic"] .plate .ask button, html[data-wall="tile"] .button, html[data-wall="mosaic"] .button { color: #fff !important; }
+html[data-wall="tile"] .about-page, html[data-wall="mosaic"] .about-page { margin-top: 12px; margin-bottom: 50px; }
+html[data-wall="tile"] .filter button, html[data-wall="mosaic"] .filter button { background: #f6f2ea; color: #3b3a36; border-color: #f6f2ea; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
+html[data-wall="tile"] .filter button[aria-pressed="true"], html[data-wall="mosaic"] .filter button[aria-pressed="true"] { background: #1d1c1a; color: #fff; border-color: #1d1c1a; }
+html[data-wall="tile"] .fr, html[data-wall="mosaic"] .fr { box-shadow: 0 calc(var(--fw) * 0.3) calc(var(--fw) * 0.6) rgba(0, 0, 0, 0.5), 0 calc(var(--fw) * 1.1) calc(var(--fw) * 2.6) rgba(0, 0, 0, 0.45); }
+/* Frames for these two walls: black on the orange tile, white on the patchwork, so the frame stands clear of a busy wall. */
+html[data-wall="tile"] { --auto-f: #3a3a3c #1f1f21 #0d0d0e #2b2b2d; --auto-l: #000 #2b2b2d #4a4a4d #151516; --auto-a: #3a3a3c; --auto-b: #0d0d0e; }
+html[data-wall="mosaic"] { --auto-f: #ffffff #ecebe7 #d2d0ca #f6f5f1; --auto-l: #c9c7c1 #f6f5f1 #ffffff #dddbd5; --auto-a: #ffffff; --auto-b: #d2d0ca; }
+.sw-tile { background: url("walls/tile-dot.jpg") center / cover; }
+.sw-mosaic { background: url("walls/mosaic-dot.jpg") center / cover; }
+
+/* ───────────────────────── The walk-through ─────────────────────────
+   The front page is one long gallery. The page itself does not scroll: the
+   hall fills the screen under the top bar and scrolls sideways. Inside it the
+   wall and the floor are one long strip, so they move together as you walk. */
+html.walking, html.walking body { height: 100%; }
+html.walking body { display: flex; flex-direction: column; overflow: hidden; background: #17140f; background-image: none; }
+html.walking .top { flex: none; width: 100%; max-width: none; padding: 10px 18px 8px; gap: 4px 22px; background: rgba(20, 17, 13, 0.92); color: #f3efe6; text-shadow: none !important; }
+html.walking .top .name, html.walking .top nav a, html.walking .top .wallpick { color: #f3efe6 !important; font-weight: 400 !important; }
+html.walking .top .name { font-size: 22px; }
+html.walking .top .name span { display: inline; margin: 0 0 0 12px; font-size: 12px; color: #b8b0a0 !important; }
+html.walking .top .wallpick { width: auto; }
+html.walking .top .sw { width: 26px; height: 26px; }
+html.walking .top .sw[aria-pressed="true"] { outline-color: #f3efe6; }
+.hall { flex: 1 1 auto; min-height: 0; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; outline: none; overscroll-behavior: contain; }
+@media (prefers-reduced-motion: reduce) { .hall { scroll-behavior: auto; } }
+.run { display: grid; grid-template-rows: minmax(0, 1fr) clamp(54px, 15vh, 130px); height: 100%; min-width: max-content; }
+/* The wall. Its picture or colour is laid on this strip, so it travels with the pictures. */
+.wallrow { display: flex; align-items: center; gap: clamp(36px, 7vw, 120px); padding: 0 clamp(24px, 6vw, 110px); min-height: 0;
+  background-color: var(--wall); background-image: var(--grain); }
+html[data-wall="stucco"] .wallrow, html[data-wall="stone"] .wallrow, html[data-wall="brick"] .wallrow, html[data-wall="tile"] .wallrow, html[data-wall="mosaic"] .wallrow {
+  background-image: linear-gradient(rgba(0, 0, 0, var(--dim)), rgba(0, 0, 0, var(--dim))), var(--photo); background-size: auto, var(--photo-size); background-repeat: repeat, repeat; }
+/* The floor: boards running away from you, darker towards the wall, under a pale skirting board. */
+.floor { border-top: clamp(8px, 1.6vh, 16px) solid #e9e2d3; box-shadow: inset 0 14px 22px -8px rgba(0, 0, 0, 0.55);
+  background-color: #6b4a2c;
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0) 70%), repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.28) 0 2px, rgba(255, 255, 255, 0.04) 2px 5px, rgba(0, 0, 0, 0) 5px 150px), repeating-linear-gradient(90deg, #6b4a2c 0 150px, #74512f 150px 300px, #63432a 300px 450px); }
+/* A room: its sign, then its pictures in a row. */
+.room { display: flex; align-items: center; gap: clamp(36px, 7vw, 120px); height: 100%; }
+.hang { --h: min(50vh, 520px); display: block; flex: none; width: min(calc(var(--h) * var(--shape, 1.3)), 86vw); container-type: inline-size; position: relative; isolation: isolate; text-decoration: none; color: inherit; }
+.hang .fr { --fw: clamp(9px, 4.2cqw, 40px); }
+.hang .label { display: inline-block; margin-top: 16px; padding: 8px 13px 9px; background: #f6f2ea; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 14px rgba(0, 0, 0, 0.25); max-width: 100%; }
+.hang .label b { color: #1d1c1a; font-size: clamp(15px, 2.2vh, 19px); }
+.hang .label i { color: #6b675f; font-size: 13px; }
+.hang:hover .fr::before, .hang:focus-visible .fr::before { background: radial-gradient(ellipse 56% 62% at 50% 36%, rgba(255, 240, 210, 0.85), rgba(255, 240, 210, 0.36) 42%, rgba(255, 240, 210, 0) 72%); }
+@media (max-height: 520px) { .hang { --h: 46vh; } .hang .label i { display: none; } }
+.sign, .entrance { flex: none; display: grid; gap: 8px; align-content: center; justify-items: start; max-width: min(78vw, 420px); padding: 22px 26px; background: #f6f2ea; color: #1d1c1a; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 14px 34px rgba(0, 0, 0, 0.3); }
+.sign b { font: 400 clamp(22px, 3.4vh, 30px) var(--serif); }
+.sign span { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b675f; }
+.entrance h1, .entrance h2 { margin: 0; font: 400 clamp(26px, 4.6vh, 42px)/1.1 var(--serif); }
+.entrance p { margin: 0; color: #55524c; }
+.entrance .how { font-size: 14px; color: #6b675f; }
+.entrance a { color: #7a2e1d; }
+.entrance .button { color: #fff !important; background: #7a2e1d; border: 0; cursor: pointer; }
+/* The doorway between the two rooms. */
+.door { flex: none; align-self: stretch; width: clamp(70px, 12vw, 150px); margin: 0 clamp(4px, 2vw, 30px); background: linear-gradient(90deg, #0b0a08, #1d1a15 45%, #0b0a08); border-left: 10px solid #e9e2d3; border-right: 10px solid #e9e2d3; box-shadow: inset 0 0 40px #000; }
+/* The buttons to walk with, and where you are. */
+.steps { position: fixed; left: 0; right: 0; bottom: clamp(8px, 2vh, 20px); display: flex; justify-content: center; align-items: center; gap: 14px; pointer-events: none; z-index: 5; }
+.steps button { pointer-events: auto; width: 56px; height: 56px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.75); background: rgba(20, 17, 13, 0.82); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
+.steps button:hover { background: #7a2e1d; }
+.steps button:disabled { opacity: 0.35; cursor: default; }
+.steps span { pointer-events: none; min-width: 9em; text-align: center; padding: 8px 14px; border-radius: 999px; background: rgba(20, 17, 13, 0.82); color: #f3efe6; font-size: 14px; }
+
+/* ───────────────────────── Gallery wall colours ─────────────────────────
+   Neutral mid grey is the gallery standard: it does not push a picture's colours warmer or
+   cooler. White and off-white are bright; greige is a warm neutral; charcoal and navy are
+   muted darks that make light and vivid pictures stand out. */
+html[data-wall="grey"] { --wall: #9b9b98; --line: #84847f; --ink: #1a1a19; --ink-2: #2e2e2c; --muted: #45453f; --accent: #5e1f12; --accent-2: #47170d; --light: radial-gradient(120% 70% at 50% -10%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 60%); }
+html[data-wall="greige"] { --wall: #b9ad9c; --line: #a19584; --ink: #1d1b18; --ink-2: #3a362f; --muted: #57514a; --accent: #6a2616; --accent-2: #4f1b0f; --light: radial-gradient(120% 70% at 50% -10%, rgba(255, 250, 240, 0.4), rgba(255, 255, 255, 0) 60%); }
+html[data-wall="navy"] { --wall: #1e2a3d; --ink: #f1f0ec; --ink-2: #d2d4d8; --muted: #9ea6b3; --line: #37445a; --card: #f7f5f0; --accent: #e8c98a; --accent-2: #d4b270; --light: none; }
+html[data-wall="navy"] .filter button[aria-pressed="true"] { background: var(--ink); color: var(--wall); border-color: var(--ink); }
+html[data-wall="navy"] .ask button, html[data-wall="navy"] .button { color: #201a14; }
+/* Frames for these walls: black on mid grey and on greige, gold on navy. */
+html[data-wall="grey"], html[data-wall="greige"] { --auto-f: #3a3a3c #1f1f21 #0d0d0e #2b2b2d; --auto-l: #000 #2b2b2d #4a4a4d #151516; --auto-a: #3a3a3c; --auto-b: #0d0d0e; }
+html[data-wall="navy"] { --auto-f: #f1d98c #c9a445 #8a6a1f #dcbb5e; --auto-l: #8a6a1f #dcbb5e #f1d98c #b9953b; --auto-a: #f1d98c; --auto-b: #8a6a1f; }
+.sw-grey { background: #9b9b98; } .sw-greige { background: #b9ad9c; } .sw-navy { background: #1e2a3d; }
+
+/* The hall has its own buttons and keys, so its scroll bar is hidden. */
+.hall { scrollbar-width: none; }
+.hall::-webkit-scrollbar { display: none; }
+/* On a phone the top bar is kept to two short rows, so the pictures get the screen. */
+@media (max-width: 700px) {
+  html.walking .top { padding: 8px 12px 6px; gap: 2px 14px; }
+  html.walking .top .name { font-size: 19px; }
+  html.walking .top .name span { display: none; }
+  html.walking .top nav { gap: 14px; flex-wrap: nowrap; }
+  html.walking .top nav a { font-size: 12px; letter-spacing: 0.05em; padding: 4px 0; white-space: nowrap; }
+  html.walking .top .wallpick { width: 100%; gap: 6px; }
+  html.walking .top .wallpick > span { display: none; }
+  html.walking .top .swatches { gap: 5px; flex-wrap: nowrap; }
+  html.walking .top .sw { width: 22px; height: 22px; }
+  .steps button { width: 48px; height: 48px; font-size: 20px; }
+}
+
+/* ───────────────────────── The 3D gallery ─────────────────────────
+   On a wide screen the halls fill the page under the top bar, and the wall of
+   pictures below is put away. On a phone none of this applies: the page stays
+   a wall of pictures. */
+.view3d { position: relative; flex: 1 1 auto; min-height: 0; background: #0d0c0a; }
+.view3d canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+html.in3d, html.in3d body { height: 100%; }
+html.in3d body { display: flex; flex-direction: column; overflow: hidden; background: #0d0c0a; background-image: none; }
+html.in3d #flat, html.in3d .foot { display: none; }
+html:not(.in3d) .view3d { display: none; }
+.where { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); margin: 0; padding: 7px 16px; border-radius: 999px; background: rgba(15, 13, 10, 0.72); color: #f3efe6; font-size: 14px; pointer-events: none; white-space: nowrap; max-width: 80%; overflow: hidden; text-overflow: ellipsis; }
+.tools { position: absolute; right: 14px; top: 10px; display: flex; gap: 8px; }
+.tools button, .pad button { font: 400 14px var(--sans); color: #fff; background: rgba(15, 13, 10, 0.78); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 999px; padding: 9px 16px; min-height: 42px; cursor: pointer; }
+.tools button:hover, .pad button:hover { background: #7a2e1d; border-color: #7a2e1d; }
+.pad { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; }
+.pad span { display: grid; gap: 8px; }
+.pad button { width: 58px; height: 52px; padding: 0; border-radius: 14px; font-size: 22px; user-select: none; touch-action: none; }
+
+/* The wall of pictures on the front page: a heading for each room. */
+.room-title { margin: 30px 0 22px; font: 400 clamp(24px, 4vw, 34px) var(--serif); color: var(--ink); }
+.room-title:first-of-type { margin-top: 6px; }
+.room-title span { font: 400 15px var(--sans); color: var(--muted); margin-left: 8px; }
+html[data-wall="stone"] .room-title, html[data-wall="brick"] .room-title, html[data-wall="tile"] .room-title, html[data-wall="mosaic"] .room-title { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85); }
+
+/* ───────────────────────── The sheet ─────────────────────────
+   A picture on its own, a text, or the thumbnails, opened over the gallery.
+   It is dark glass: the gallery is still there behind it, and one button
+   returns you to it exactly where you were. */
+.sheet { position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: clamp(8px, 2.5vmin, 28px); background: rgba(8, 8, 9, 0.78); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); overflow: auto; }
+html.sheet-open { overflow: hidden; }
+.sheet-card { position: relative; width: min(1180px, 100%); max-height: 100%; overflow: auto; padding: clamp(16px, 3vmin, 34px); color: #f4f1ea;
+  background: linear-gradient(160deg, rgba(210, 232, 244, 0.20), rgba(210, 232, 244, 0.09)); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 14px; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+.sheet-back { font: 400 15px var(--sans); color: #fff; background: rgba(15, 13, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.65); border-radius: 999px; padding: 10px 18px; min-height: 44px; cursor: pointer; margin-bottom: 16px; }
+.sheet-back:hover { background: #7a2e1d; border-color: #7a2e1d; }
+.sheet-body h2 { margin: 0 0 10px; font: 400 clamp(26px, 4vw, 40px)/1.12 var(--serif); color: #fff; }
+.sheet-body h3 { margin: 22px 0 10px; font: 400 21px var(--serif); color: #fff; }
+.sheet-body p, .sheet-body li { font-size: 18px; line-height: 1.6; color: #ebe7de; }
+.sheet-body p { margin: 0 0 12px; }
+.sheet-body ul { margin: 0 0 12px; padding-left: 22px; display: grid; gap: 6px; }
+.sheet-body a { color: #ffd9a0; }
+.sheet-body .small { font-size: 14px; color: #c9c4b8; }
+.sheet-body .button { color: #fff !important; background: #7a2e1d; border: 0; cursor: pointer; font: 400 15px var(--sans); letter-spacing: 0.06em; text-transform: uppercase; padding: 13px 24px; border-radius: 4px; display: inline-block; text-decoration: none; }
+.sheet-body .button.quiet { background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.6); }
+.sheet-body .linkish { font: inherit; color: #ffd9a0; background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+/* One work: the picture beside what it is. */
+.sheet-body.one { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(220px, 1fr); gap: clamp(16px, 3vw, 36px); align-items: center; }
+@media (max-width: 800px) { .sheet-body.one { grid-template-columns: 1fr; } }
+.sheet-body.one figure { margin: 0; }
+.sheet-body.one figure img { width: 100%; max-height: 78vh; object-fit: contain; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55); }
+.sheet-body .kind { margin: 0 0 6px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #cfc9bb; }
+.sheet-body .status { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+/* A text. */
+.sheet-body.text { max-width: 64ch; }
+/* The thumbnails. */
+.thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.thumbs button { display: grid; gap: 6px; align-content: start; padding: 8px; text-align: left; color: #f4f1ea; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 8px; cursor: pointer; font: 400 14px/1.3 var(--sans); }
+.thumbs button:hover, .thumbs button:focus-visible { background: rgba(255, 255, 255, 0.2); border-color: #fff; }
+.thumbs img { width: 100%; height: 120px; object-fit: cover; }
+
+/* Nothing on any page may make it scroll sideways. */
+html { overflow-x: clip; }
+.grid { overflow-x: clip; padding: 0 2px; }
+
+/* Being taken to a picture: the view dims for a moment and returns. */
+.view3d canvas { transition: opacity 0.24s ease; }
+.view3d.carried canvas { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .view3d canvas { transition: none; } }
+
+/* The walking buttons sit in the corner, clear of the picture and its label. */
+.pad { left: auto; right: 22px; transform: none; }
+
+/* While the automatic tour runs, its button is lit and the pointer shows that a click will stop it. */
+html.touring #btn-tour { background: #7a2e1d; border-color: #7a2e1d; }
+html.touring .view3d canvas { cursor: pointer !important; }
+
+/* The way in to the 3D gallery, on the opening page and in the top bar. It is offered only where the gallery can be walked. */
+.way-in { display: none; margin: 4px 0 26px; gap: 10px 22px; align-items: center; flex-wrap: wrap; }
+.way-in p { margin: 0; color: var(--ink-2); font-size: 17px; }
+.button.big { font-size: 18px; padding: 17px 34px; letter-spacing: 0.1em; }
+.top nav a.enter { display: none; }
+@media (min-width: 900px) and (min-height: 520px) {
+  .way-in { display: flex; }
+  .top nav a.enter { display: inline-block; color: #fff !important; background: var(--accent); padding: 6px 14px; border-radius: 4px; border-bottom: 0; }
+  .top nav a.enter:hover { background: var(--accent-2); }
+}
+html[data-wall="stone"] .way-in p, html[data-wall="brick"] .way-in p, html[data-wall="tile"] .way-in p, html[data-wall="mosaic"] .way-in p { text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85); }
+html[data-wall="charcoal"] .top nav a.enter, html[data-wall="navy"] .top nav a.enter, html[data-wall="stone"] .top nav a.enter, html[data-wall="brick"] .top nav a.enter, html[data-wall="tile"] .top nav a.enter, html[data-wall="mosaic"] .top nav a.enter, html.walking .top nav a.enter { background: #7a2e1d; }
+.tools a.tool { font: 400 14px var(--sans); color: #fff; background: rgba(15, 13, 10, 0.78); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 999px; padding: 9px 16px; min-height: 42px; text-decoration: none; display: inline-flex; align-items: center; }
+.tools a.tool:hover { background: #7a2e1d; border-color: #7a2e1d; }
+
+/* Contact: the artist's name, an email button and a LinkedIn button. */
+.ask .who { margin: 0; font: 400 18px var(--serif); }
+.ask p { margin: 0; }
+.button.quiet { background: transparent; color: var(--ink); border: 1px solid var(--ink-2); }
+.sheet-body .reach { display: flex; gap: 10px; flex-wrap: wrap; }
+.sheet-body .button.quiet { color: #fff; }
+.about-page #contact { margin-bottom: 26px; }
+
+/* The contact form's own words: who it goes to, and the LinkedIn line under it. */
+.ask .who, .ask .also { font: 400 15px/1.5 var(--sans); color: var(--ink-2); }
+.ask .also a { color: inherit; }
+.ask button { justify-self: start; }
+.about-page .ask { max-width: 34rem; }
+
+/* The emblem of the gallery beside the name at the top of every page. */
+.top .name .emblem { float: left; width: 46px; height: 46px; margin: 0 12px 0 0; }
+html.walking .top .name .emblem { float: none; display: inline-block; width: 28px; height: 28px; margin: 0 10px 0 0; vertical-align: middle; }
+.top .name span { white-space: nowrap; }
+
+/* The tools over the 3D gallery run to a second row when there are too many for one, and keep to the right. */
+.tools { flex-wrap: wrap; justify-content: flex-end; max-width: 520px; }
+
+/* The centrepiece at the top of the opening page: one work, large, in the middle, with its name under it. */
+.feature { display: flex; justify-content: center; margin: 6px 0 34px; }
+.feature .piece { display: block; width: min(100%, 860px); text-align: center; }
+.feature .piece .label { display: block; margin-top: 16px; text-align: center; }
+.feature .piece .label b { display: block; font: 400 clamp(24px, 3vw, 34px) var(--serif); margin: 4px 0; }
+.feature .piece .label i { display: block; font-style: normal; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
+.way-in { justify-content: center; }
+
+/* The line at the foot of every page about how the work was made, and the centrepiece kept to a size that leaves its name in view. */
+.foot .made-note { margin-top: 6px; font-size: 14px; max-width: 60rem; }
+.foot .made-note a, .plate .made a { color: inherit; white-space: nowrap; }
+.feature .piece { width: min(100%, 700px); }
+
+.foot a { color: inherit; white-space: nowrap; }
+
+/* The number of paintings, where the row of choices used to be. */
+.wall .count { margin: 0 0 22px; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); text-align: center; }
+
+/* The "How it was built" page. */
+.built { max-width: 800px; }
+.built .lede { font-size: 21px; color: var(--ink); }
+.built h3 { font: 600 19px var(--sans); margin: 26px 0 6px; color: var(--ink); }
+.built ul { margin: 0 0 14px; padding-left: 22px; }
+.built li { font-size: 18px; color: var(--ink-2); margin-bottom: 8px; }
+.built .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 22px 0; }
+.built .fact { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+.built .fact b { display: block; font: 400 34px var(--serif); color: var(--ink); }
+.built .fact span { font-size: 14px; color: var(--ink-2); }
+.built .stack { width: 100%; border-collapse: collapse; margin: 6px 0 10px; }
+.built .stack th, .built .stack td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-top: 1px solid var(--line); font-size: 17px; color: var(--ink-2); }
+.built .stack th { width: 34%; font-weight: 600; color: var(--ink); }
+.built .button.quiet { margin-left: 4px; }
+@media (max-width: 560px) { .built .stack th, .built .stack td { display: block; width: auto; padding: 8px 0 0; border-top: 0; } .built .stack td { padding-bottom: 10px; border-bottom: 1px solid var(--line); } }
+/* On a dark or photographed wall the page is read on a pale panel, so the words stay legible. */
+html[data-wall="charcoal"] .built, html[data-wall="navy"] .built, html[data-wall="stone"] .built, html[data-wall="brick"] .built, html[data-wall="tile"] .built, html[data-wall="mosaic"] .built, html[data-wall="stucco"] .built { background: rgba(250, 248, 243, 0.95); border-radius: 8px; padding: 22px 28px 40px; margin-top: 12px; }
+
+/* A quoted message of direction, and what it changed. */
+.built .said { margin: 0 0 18px; }
+.built .said blockquote { margin: 0 0 6px; padding: 10px 16px; border-left: 4px solid var(--accent); background: var(--card); border-radius: 0 6px 6px 0; font: italic 400 18px/1.5 var(--serif); color: var(--ink); }
+.built .said p { margin: 0 0 0 20px; font-size: 16px; }
+
+/* "How it was built" is read on a sheet of parchment, whatever wall is chosen, in dark ink for contrast. */
+html .built {
+  --ink: #1c1712; --ink-2: #2b241b; --line: #cdbb92; --card: #fbf5e3;
+  max-width: 860px; margin: 18px auto 60px; padding: 34px 44px 46px;
+  color: #1c1712; border: 1px solid #c9b584; border-radius: 6px;
+  background: radial-gradient(ellipse at 30% 20%, rgba(255, 252, 238, 0.9), rgba(255, 252, 238, 0) 60%), linear-gradient(135deg, #f4e9cb, #ead9ae 55%, #f1e4c2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 0 60px rgba(150, 115, 50, 0.16);
+}
+html .built h1, html .built h2, html .built h3, html .built .lede, html .built .stack th, html .built .fact b, html .built .said blockquote { color: #1c1712; }
+html .built p, html .built li, html .built .stack td, html .built .fact span { color: #2b241b; }
+html .built h2 { border-top: 1px solid #cdbb92; padding-top: 22px; }
+html .built .button.quiet { color: #1c1712; border-color: #1c1712; background: transparent; }
+@media (max-width: 560px) { html .built { margin: 8px 8px 40px; padding: 22px 18px 30px; } }
+
+/* The view darkens a little toward its edges, as a photograph does. The buttons stay above it. */
+.view3d::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1; background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.42) 100%); }
+.view3d .tools, .view3d .pad, .view3d #where { z-index: 3; }
+
+/* ── The cinema: a dark room, one screen, a row of films ── */
+.cinema { background: radial-gradient(70% 55% at 12% 0%, rgba(96, 44, 160, 0.38), transparent 70%), radial-gradient(60% 50% at 100% 20%, rgba(40, 52, 170, 0.34), transparent 70%), radial-gradient(70% 45% at 50% 105%, rgba(22, 120, 92, 0.30), transparent 70%), #07060f; color: #efe9dd; padding: clamp(20px, 4vw, 48px) clamp(14px, 4vw, 48px) 56px; display: grid; gap: 18px; justify-items: center; text-align: center; }
+.cinema h1 { margin: 0; font: 400 clamp(30px, 5vw, 46px) var(--serif); color: #fff; }
+.cinema .lede { margin: 0; color: #bdb5a6; }
+.cinema .screen { width: min(100%, 1100px); background: #000; border-radius: 6px; box-shadow: 0 0 0 1px #2a2723, 0 30px 90px -20px rgba(255, 214, 150, 0.22); overflow: hidden; }
+.cinema video { display: block; width: 100%; max-height: 72vh; background: #000; }
+.cinema .now { display: grid; gap: 6px; max-width: 70ch; }
+.cinema .now h2 { margin: 6px 0 0; font: 400 26px var(--serif); color: #fff; }
+.cinema .now p { margin: 0; color: #cfc7b8; }
+.cinema .credit { font-size: 14px; color: #9c9486; }
+.cinema a { color: #e9c98a; }
+.cinema .reel { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; }
+.cinema .reel button { display: grid; gap: 6px; width: 220px; padding: 0 0 8px; background: #16140f; color: #e9e3d6; border: 1px solid #2a2723; border-radius: 6px; cursor: pointer; overflow: hidden; font: 400 15px var(--serif); }
+.cinema .reel button img { display: block; width: 100%; height: 124px; object-fit: cover; }
+.cinema .reel button:hover { border-color: #e9c98a; }
+.cinema .reel button[aria-pressed="true"] { border-color: #e9c98a; box-shadow: 0 0 0 2px #e9c98a; }
+.cinema .made-note { max-width: 70ch; font-size: 14px; color: #9c9486; margin: 8px 0 0; }
+
+/* The cinema as a room. cinema3d.js draws it and adds the class "is-room"; without it the plain player shows. */
+.cinema .screen { box-shadow: 0 0 0 1px #2c2452, 0 30px 90px -20px rgba(150, 110, 255, 0.35); }
+.cinema .screen canvas { display: block; width: 100%; height: auto; }
+.cinema .screen.is-room video { position: absolute; width: 2px; height: 2px; opacity: 0; pointer-events: none; }
+.cinema .screen.is-room { position: relative; }
+.cinema .booth { display: flex; gap: 10px; justify-content: center; }
+.cinema .booth button { font: 400 15px var(--sans); color: #e9e3ff; background: #1a1640; border: 1px solid #3a3378; border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+.cinema .booth button:hover { border-color: #35ffa6; }
+.cinema .reel button { background: #14112e; border-color: #2c2452; }
+.cinema .reel button:hover, .cinema .reel button[aria-pressed="true"] { border-color: #35ffa6; }
+.cinema .reel button[aria-pressed="true"] { box-shadow: 0 0 0 2px #35ffa6; }
+.cinema a { color: #c9b3ff; }
+
+/* The sign over the way in to the cinema: a lit marquee with a row of bulbs round it. */
+.cinema .marquee { display: grid; gap: 2px; padding: 16px clamp(22px, 5vw, 56px) 14px; border-radius: 14px; background: #0d0a22; border: 3px dotted #ffd98a; box-shadow: 0 0 0 6px #150f33, 0 0 34px rgba(176, 107, 255, 0.55), inset 0 0 28px rgba(53, 255, 166, 0.12); }
+.cinema .marquee h1 { margin: 0; font: 700 clamp(30px, 6vw, 58px)/1.05 var(--serif); letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-shadow: 0 0 10px #b06bff, 0 0 26px #7a3cff; }
+.cinema .marquee p { margin: 0; font: 400 clamp(14px, 2vw, 18px) var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: #9dffd4; text-shadow: 0 0 10px rgba(53, 255, 166, 0.7); }
+.cinema .marquee a { color: #9dffd4; }
+
+.cinema .way-back { display: inline-block; margin-top: 6px; font: 400 15px var(--sans); color: #e9e3ff; text-decoration: none; border: 1px solid #3a3378; border-radius: 999px; padding: 8px 18px; }
+.cinema .way-back:hover { border-color: #35ffa6; }

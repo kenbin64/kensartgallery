@@ -1,0 +1,46 @@
+{
+  // Publishes the built site folder to Cloudflare, plus one small server program
+  // (worker.js) that handles the contact form. Never the working folder: that
+  // holds the original photographs and the build scripts.
+  // Build first (node build.js), then deploy (npx wrangler deploy).
+  //
+  // FROM_EMAIL must be an address on a domain that has Email Routing turned
+  // on in this Cloudflare account. costofsaving.com already has.
+  "name": "ken-bingham-gallery",
+  "compatibility_date": "2026-10-01",
+
+  // The server program answers addresses that start with /api/ and passes
+  // everything else straight to the site's files.
+  "main": "worker.js",
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+
+  // One number a day is kept here: how many messages the form has sent.
+  "kv_namespaces": [
+    { "binding": "GALLERY", "id": "75b06e5ef52247aab585359c1f541933" }
+  ],
+
+  // Messages are emailed to this one address and to no other. It is known only
+  // to the server and appears in no page. The address must be verified under
+  // Email Routing in the Cloudflare dashboard (it already is, for costofsaving.com).
+  "send_email": [
+    { "name": "MAIL", "destination_address": "you@example.com" }
+  ],
+  "vars": {
+    "OWNER_EMAIL": "you@example.com",
+    "FROM_EMAIL": "gallery@costofsaving.com"
+  }
+
+  // THE GALLERY'S OWN ADDRESS: kensartgallery.com, registered at Cloudflare on 2026-10-09.
+  // Cloudflare makes the DNS records and the HTTPS certificate for these.
+  // When Email Routing is turned on for it, FROM_EMAIL above can become
+  // contact@kensartgallery.com.
+  ,"routes": [
+    { "pattern": "kensartgallery.com", "custom_domain": true },
+    { "pattern": "www.kensartgallery.com", "custom_domain": true }
+  ]
+}

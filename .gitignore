@@ -1,0 +1,14 @@
+# Built or downloaded: made again by "npm install" and "node build.js"
+node_modules/
+.pylib/
+__pycache__/
+site/
+.wrangler/
+
+# The full-size, unmarked photographs of the paintings and the AI images. They are kept off GitHub on
+# purpose: the public copies carry the watermark and the signature, and these do not.
+originals/
+
+# The films (large), and the settings file that holds the address the contact form sends to.
+cinema/*.mp4
+wrangler.jsonc
